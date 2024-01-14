@@ -1,0 +1,1145 @@
+openapi: 3.0.3
+info:
+  title: Project API
+  version: 1.0.0
+  description: Your project description
+paths:
+  /api/emp/:
+    get:
+      operationId: api_emp_list
+      description: |-
+        View for listing and creating Employee instances.
+
+        Only accessible to admin users with basic authentication.
+      tags:
+      - api
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmpSerWithPhone'
+          description: ''
+    post:
+      operationId: api_emp_create
+      description: |-
+        View for listing and creating Employee instances.
+
+        Only accessible to admin users with basic authentication.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpSerWithPhone'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmpSerWithPhone'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmpSerWithPhone'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpSerWithPhone'
+          description: ''
+  /api/emp/{id}/:
+    get:
+      operationId: api_emp_retrieve
+      description: |-
+        View for retrieving, updating, and deleting an Employee instance.
+
+        Only accessible to the original author or admin users with basic authentication.
+        Supports PATCH, GET, and DELETE methods.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpSerWithPhone'
+          description: ''
+    patch:
+      operationId: api_emp_partial_update
+      description: |-
+        View for retrieving, updating, and deleting an Employee instance.
+
+        Only accessible to the original author or admin users with basic authentication.
+        Supports PATCH, GET, and DELETE methods.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpSerWithPhone'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpSerWithPhone'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpSerWithPhone'
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpSerWithPhone'
+          description: ''
+    delete:
+      operationId: api_emp_destroy
+      description: |-
+        View for retrieving, updating, and deleting an Employee instance.
+
+        Only accessible to the original author or admin users with basic authentication.
+        Supports PATCH, GET, and DELETE methods.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/emp/ObE/{employee_id}:
+    get:
+      operationId: api_emp_ObE_list
+      description: View for listing orders associated with a specific employee.
+      parameters:
+      - in: path
+        name: employee_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+  /api/emp/phone/:
+    get:
+      operationId: api_emp_phone_list
+      description: |-
+        View for listing and creating PhoneNumber instances.
+
+        No specific permissions are set.
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PhoneNumber'
+          description: ''
+    post:
+      operationId: api_emp_phone_create
+      description: |-
+        View for listing and creating PhoneNumber instances.
+
+        No specific permissions are set.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+          description: ''
+  /api/emp/phone/{id}/:
+    get:
+      operationId: api_emp_phone_retrieve
+      description: |-
+        View for retrieving, updating, and deleting a PhoneNumber instance.
+
+        No specific permissions are set.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+          description: ''
+    put:
+      operationId: api_emp_phone_update
+      description: |-
+        View for retrieving, updating, and deleting a PhoneNumber instance.
+
+        No specific permissions are set.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+          description: ''
+    patch:
+      operationId: api_emp_phone_partial_update
+      description: |-
+        View for retrieving, updating, and deleting a PhoneNumber instance.
+
+        No specific permissions are set.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPhoneNumber'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPhoneNumber'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPhoneNumber'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumber'
+          description: ''
+    delete:
+      operationId: api_emp_phone_destroy
+      description: |-
+        View for retrieving, updating, and deleting a PhoneNumber instance.
+
+        No specific permissions are set.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/meal/:
+    post:
+      operationId: api_meal_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meal'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meal'
+          description: ''
+  /api/meal/{id}/:
+    put:
+      operationId: api_meal_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meal'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meal'
+          description: ''
+    patch:
+      operationId: api_meal_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMeal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMeal'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMeal'
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meal'
+          description: ''
+  /api/meal/deli/:
+    get:
+      operationId: api_meal_deli_list
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+          description: ''
+    post:
+      operationId: api_meal_deli_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: ''
+  /api/meal/deli/{id}/:
+    get:
+      operationId: api_meal_deli_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: ''
+    put:
+      operationId: api_meal_deli_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Delivery'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: ''
+    patch:
+      operationId: api_meal_deli_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDelivery'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDelivery'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDelivery'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: ''
+    delete:
+      operationId: api_meal_deli_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/meal/list/:
+    get:
+      operationId: api_meal_list_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+          description: ''
+  /api/meal/list/{id}/:
+    get:
+      operationId: api_meal_list_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meal'
+          description: ''
+  /api/meal/ord/:
+    get:
+      operationId: api_meal_ord_list
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+    post:
+      operationId: api_meal_ord_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/meal/ord/{id}/:
+    get:
+      operationId: api_meal_ord_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+    patch:
+      operationId: api_meal_ord_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrder'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOrder'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrder'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+    delete:
+      operationId: api_meal_ord_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/token/:
+    post:
+      operationId: api_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: api_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/token/verify/:
+    post:
+      operationId: api_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+components:
+  schemas:
+    Delivery:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        orderID:
+          type: integer
+      required:
+      - address
+      - name
+      - orderID
+    EmpSerWithPhone:
+      type: object
+      description: |-
+        Serializer for the Employee model with associated PhoneNumbers.
+
+        Includes methods for retrieving and updating associated PhoneNumber instances.
+        Attributes:
+        - phone_numbers as anested serilizer
+        - number as a custom field for numbers
+        - password as a write only field
+        - and all other necessicy field in meta
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        salary:
+          type: number
+          format: double
+        position:
+          type: string
+          maxLength: 100
+        number:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+        address:
+          type: string
+          maxLength: 100
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumberSerializer1'
+      required:
+      - address
+      - number
+      - password
+      - pk
+      - position
+      - salary
+      - username
+    Employee:
+      type: object
+      description: Serializer for the Employee model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        name:
+          type: string
+          maxLength: 100
+        salary:
+          type: number
+          format: double
+        position:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+          maxLength: 100
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - address
+      - id
+      - name
+      - password
+      - position
+      - salary
+      - username
+    Meal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        price:
+          type: number
+          format: double
+        capacity:
+          type: integer
+        sales:
+          type: integer
+      required:
+      - capacity
+      - id
+      - name
+      - price
+      - sales
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        meal:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meal'
+        price:
+          type: number
+          format: double
+          readOnly: true
+        delFlag:
+          type: boolean
+        completed:
+          type: boolean
+        empID:
+          type: integer
+      required:
+      - empID
+      - id
+      - meal
+      - price
+    PatchedDelivery:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        address:
+          type: string
+        orderID:
+          type: integer
+    PatchedEmpSerWithPhone:
+      type: object
+      description: |-
+        Serializer for the Employee model with associated PhoneNumbers.
+
+        Includes methods for retrieving and updating associated PhoneNumber instances.
+        Attributes:
+        - phone_numbers as anested serilizer
+        - number as a custom field for numbers
+        - password as a write only field
+        - and all other necessicy field in meta
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          title: ID
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        salary:
+          type: number
+          format: double
+        position:
+          type: string
+          maxLength: 100
+        number:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+        address:
+          type: string
+          maxLength: 100
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumberSerializer1'
+    PatchedMeal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        price:
+          type: number
+          format: double
+        capacity:
+          type: integer
+        sales:
+          type: integer
+    PatchedOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        meal:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meal'
+        price:
+          type: number
+          format: double
+          readOnly: true
+        delFlag:
+          type: boolean
+        completed:
+          type: boolean
+        empID:
+          type: integer
+    PatchedPhoneNumber:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        PhoneNumber:
+          type: integer
+        empID:
+          type: integer
+    PhoneNumber:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        PhoneNumber:
+          type: integer
+        empID:
+          type: integer
+      required:
+      - PhoneNumber
+      - id
+    PhoneNumberSerializer1:
+      type: object
+      description: |-
+        Serializer for the PhoneNumber model.
+        Attributes:
+        - empID as a nested serilizer
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empID:
+          $ref: '#/components/schemas/Employee'
+        PhoneNumber:
+          type: integer
+      required:
+      - PhoneNumber
+      - id
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
