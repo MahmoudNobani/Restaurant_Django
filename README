@@ -12,3 +12,4 @@ views are documented in docstrings in files views.py
 
 
 
+ python manage.py spectacular --file schema.yml
