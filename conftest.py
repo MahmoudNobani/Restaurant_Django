@@ -14,7 +14,7 @@ def create_test_data():
     employee = Employee.objects.create(username='John',name='John Doe', password="m", salary=50000.0, position='Manager', address='123 Main St')
     phone_number = PhoneNumber.objects.create(empID=employee, PhoneNumber=1234567890)
 
-    order = Order.objects.create(empID=employee, price=35.97, delFlag=False)
+    order = Order.objects.create(empID=employee, price=35.97)
     order.meal.add(meal1, meal2, meal3)
 
     delivery = Delivery.objects.create(name='John Doe', orderID=order, address='123 Main St')
