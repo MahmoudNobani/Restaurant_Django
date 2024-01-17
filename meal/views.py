@@ -1,6 +1,3 @@
-import json
-from urllib import response
-from flask import jsonify
 from rest_framework import generics
 from collections import Counter
 from .models import Meal, Order, Delivery
@@ -8,13 +5,15 @@ from employee.models import Employee
 from .serializer import MealSerializer, OrderSerializer, DeliverySerializer, OrderSerializerReadOnly
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+
 
 class MealCreateView(generics.CreateAPIView):
     """
     General ViewSet Description:
-
+    
     API view for creating a Meal.
     Supports POST method.
 
@@ -171,17 +170,17 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
         Response:
             - Status code: 204 if successful, 404 if the Order is not found.
         """
-        o = Order.objects.get(pk=pk)
-        m = o.meal.through.objects.filter(order_id=pk)
-        if o.completed == False:
-            for i in m:
-                x = Meal.objects.get(pk=i.meal.pk)
-                x.capacity+=1
-                if x.sales > 0:
-                    x.sales-=1
-                x.save()
+        order_obj = Order.objects.get(pk=pk)
+        meals_ids = order_obj.meal.through.objects.filter(order_id=pk)
+        if order_obj.completed == False:
+            for i in meals_ids:
+                meal_obj = Meal.objects.get(pk=i.meal.pk)
+                meal_obj.capacity+=1
+                if meal_obj.sales > 0:
+                    meal_obj.sales-=1
+                meal_obj.save()
         
-        o.delete()
+        order_obj.delete()
         return Response({'message': 'Order deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
     
     def partial_update(self, request, pk, *args, **kwargs):
@@ -198,19 +197,19 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
         Response:
             - Status code: 204 if successful, 404 if the Order is not found.
         """
-        o = Order.objects.get(pk=pk)
+        order_obj = Order.objects.get(pk=pk)
         if "completed" in request.data:
             if str(request.data['completed']) == 'False' or str(request.data['completed']) == 'false':
-                o.completed = 'False'
+                order_obj.completed = 'False'
             else:
-                o.completed = 'True'
+                order_obj.completed = 'True'
 
         if "delFlag" in request.data:
             if str(request.data['delFlag']) == 'False' or str(request.data['delFlag']) == 'false':
-                o.delFlag = 'False'
+                order_obj.delFlag = 'False'
             else:
-                o.delFlag = 'True'
-        o.save()
+                order_obj.delFlag = 'True'
+        order_obj.save()
         return Response({'message': 'Order edited successfully'}, status=status.HTTP_204_NO_CONTENT)
     
 class DeliveryListCreateView(generics.ListCreateAPIView):
@@ -249,7 +248,7 @@ class DeliveryListCreateView(generics.ListCreateAPIView):
                 return Response({'error': "the order cant have a delivery as the delivery flag is false"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
         except Order.DoesNotExist:
-            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)    
+            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class DeliveryDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
