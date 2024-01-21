@@ -5,10 +5,10 @@ from employee.models import Employee
 from .serializer import MealSerializer, OrderSerializer, DeliverySerializer, OrderSerializerReadOnly
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class MealCreateView(generics.CreateAPIView):
     """
@@ -27,6 +27,10 @@ class MealCreateView(generics.CreateAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+# class CustJWTAuthentication(JWTAuthentication):
+#     user_class = Employee
 class MealListView(generics.ListAPIView):
     """
     General ViewSet Description:
@@ -37,7 +41,8 @@ class MealListView(generics.ListAPIView):
 
     allows access only with the help of token authentication
     """
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
+    permission_classes =[IsAuthenticated]
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
